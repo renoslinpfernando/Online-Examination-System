@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Examination Result{% endblock %}
+{% block content %}
+<section class="result-card">
+  <div class="result-icon">✓</div><div class="eyebrow">EXAMINATION SUBMITTED</div><h1>Well done, {{ result.name }}!</h1><p class="muted">Your answers have been evaluated automatically.</p>
+  <div class="score">{{ result.score }}<span> / {{ result.total }}</span></div><div class="percentage">{{ result.percentage }}%</div>
+  <p class="muted">Submitted on {{ result.submitted_at }}</p>
+  <a class="btn btn-primary" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</section>
+{% endblock %}

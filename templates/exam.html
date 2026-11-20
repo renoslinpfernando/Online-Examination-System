@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Examination{% endblock %}
+{% block head %}<script src="{{ url_for('static', filename='js/timer.js') }}" defer></script>{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">ONLINE TEST</div><h1>General Knowledge & Web Technology</h1><p class="muted">Choose one answer for each question.</p></div><div class="timer-box">Time remaining <strong id="timer" data-minutes="{{ duration }}">10:00</strong></div></div>
+<form id="exam-form" method="post" action="{{ url_for('submit_exam') }}">
+  {% for q in questions %}
+  <section class="panel question-card">
+    <div class="question-number">QUESTION {{ loop.index }} OF {{ questions|length }}</div>
+    <h2>{{ q.question }}</h2>
+    <div class="options">{% for option in q.options %}
+      <label class="option"><input type="radio" name="q{{ q.id }}" value="{{ loop.index0 }}"><span>{{ option }}</span></label>
+    {% endfor %}</div>
+  </section>
+  {% endfor %}
+  <div class="submit-bar"><span class="muted">Check your answers before submitting.</span><button class="btn btn-primary" type="submit" onclick="return confirm('Are you sure you want to submit the examination?')">Submit Examination</button></div>
+</form>
+{% endblock %}

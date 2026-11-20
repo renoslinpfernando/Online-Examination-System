@@ -1,0 +1,22 @@
+@startuml
+actor Student
+participant "Web Browser" as Browser
+participant "Flask Application" as Flask
+participant "Question Bank\n(in-memory)" as Bank
+participant "Evaluation Module" as Eval
+participant "Result List\n(in-memory)" as Results
+Student -> Browser: Enter login details
+Browser -> Flask: POST /login
+Flask --> Browser: Login success / dashboard
+Student -> Browser: Start examination
+Browser -> Flask: GET /exam
+Flask -> Bank: Read questions
+Bank --> Flask: Question list
+Flask --> Browser: Render examination page
+Student -> Browser: Select answers and submit
+Browser -> Flask: POST /submit_exam
+Flask -> Eval: Compare selected answers
+Eval --> Flask: Score and total
+Flask -> Results: Store result
+Flask --> Browser: Display result
+@enduml

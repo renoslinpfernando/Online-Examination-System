@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+actor Student
+actor Admin
+rectangle "Online Examination System" {
+  usecase "Login" as UC1
+  usecase "View Dashboard" as UC2
+  usecase "Attend Examination" as UC3
+  usecase "Submit Answers" as UC4
+  usecase "View Result" as UC5
+  usecase "Manage Questions" as UC6
+  usecase "View All Results" as UC7
+  usecase "Evaluate Answers" as UC8
+}
+Student --> UC1
+Student --> UC2
+Student --> UC3
+Student --> UC4
+Student --> UC5
+Admin --> UC1
+Admin --> UC6
+Admin --> UC7
+UC4 .> UC8 : <<include>>
+@enduml

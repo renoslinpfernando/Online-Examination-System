@@ -1,0 +1,43 @@
+@startuml
+class User {
+  +username: String
+  +password: String
+  +role: String
+  +login()
+  +logout()
+}
+class Student {
+  +name: String
+  +startExam()
+  +submitExam()
+  +viewResult()
+}
+class Admin {
+  +addQuestion()
+  +viewResults()
+}
+class Examination {
+  +title: String
+  +duration: Integer
+  +startTime: DateTime
+  +submit()
+}
+class Question {
+  +id: Integer
+  +text: String
+  +options: List
+  +correctAnswer: Integer
+}
+class Result {
+  +score: Integer
+  +total: Integer
+  +percentage: Float
+  +submittedAt: DateTime
+  +calculateScore()
+}
+User <|-- Student
+User <|-- Admin
+Examination "1" o-- "*" Question
+Student "1" --> "*" Result
+Examination "1" --> "*" Result
+@enduml

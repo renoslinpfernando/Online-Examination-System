@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">ADMINISTRATION</div><h1>Admin Dashboard</h1><p class="muted">Manage the demo question bank and review submitted results.</p></div><span class="pill">Administrator</span></div>
+<div class="stats-grid"><div class="stat-card"><span>Total questions</span><strong>{{ questions|length }}</strong></div><div class="stat-card"><span>Submissions</span><strong>{{ results|length }}</strong></div></div>
+<section class="panel">
+  <h2>Add a Question</h2>
+  <form method="post" action="{{ url_for('add_question') }}" class="admin-form">
+    <label>Question</label><input name="question" required placeholder="Enter question">
+    {% for i in range(4) %}<label>Option {{ i+1 }}</label><input name="option{{ i }}" required placeholder="Enter option {{ i+1 }}">{% endfor %}
+    <label>Correct option</label><select name="correct" required><option value="">Choose correct option</option>{% for i in range(4) %}<option value="{{ i }}">Option {{ i+1 }}</option>{% endfor %}</select>
+    <button class="btn btn-primary" type="submit">Add Question</button>
+  </form>
+</section>
+<section class="panel">
+  <h2>Question Bank</h2>
+  {% for q in questions %}<div class="question-row"><strong>{{ loop.index }}. {{ q.question }}</strong><span class="muted">{{ q.options|length }} options</span></div>{% endfor %}
+</section>
+<section class="panel">
+  <h2>Examination Results</h2>
+  {% if results %}<div class="table-wrap"><table><thead><tr><th>Student</th><th>Score</th><th>Percentage</th><th>Submitted</th></tr></thead><tbody>{% for r in results|reverse %}<tr><td>{{ r.name }}</td><td>{{ r.score }}/{{ r.total }}</td><td>{{ r.percentage }}%</td><td>{{ r.submitted_at }}</td></tr>{% endfor %}</tbody></table></div>
+  {% else %}<p class="muted">No examination submissions yet.</p>{% endif %}
+</section>
+{% endblock %}

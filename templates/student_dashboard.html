@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">STUDENT PORTAL</div><h1>Hello, {{ session.get('name') }}!</h1><p class="muted">Your examinations and results are available here.</p></div><span class="pill">Student</span></div>
+<div class="stats-grid"><div class="stat-card"><span>Available questions</span><strong>{{ questions|length }}</strong></div><div class="stat-card"><span>Completed exams</span><strong>{{ results|length }}</strong></div></div>
+<section class="panel">
+  <h2>Available Examination</h2>
+  <p>General Knowledge & Web Technology · Multiple Choice · 10 minutes</p>
+  <div class="action-row"><span class="muted">{{ questions|length }} questions</span><a class="btn btn-primary" href="{{ url_for('exam') }}">Start Examination →</a></div>
+</section>
+<section class="panel">
+  <h2>My Results</h2>
+  {% if results %}<div class="table-wrap"><table><thead><tr><th>Date</th><th>Score</th><th>Percentage</th></tr></thead><tbody>{% for r in results|reverse %}<tr><td>{{ r.submitted_at }}</td><td>{{ r.score }}/{{ r.total }}</td><td>{{ r.percentage }}%</td></tr>{% endfor %}</tbody></table></div>
+  {% else %}<p class="muted">You have not submitted an examination yet.</p>{% endif %}
+</section>
+{% endblock %}

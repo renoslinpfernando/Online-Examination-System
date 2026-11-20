@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Online Examination System{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('dashboard') if session.get('username') else url_for('login') }}">Online Examination System</a>
+    {% if session.get('username') %}
+      <div class="user-menu"><span>{{ session.get('name') }} · {{ session.get('role')|title }}</span><a class="btn btn-outline btn-small" href="{{ url_for('logout') }}">Logout</a></div>
+    {% endif %}
+  </header>
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for category, message in messages %}
+        <div class="alert {{ category }}">{{ message }}</div>
+      {% endfor %}{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer>Online Examination System · Academic demonstration project</footer>
+</body>
+</html>

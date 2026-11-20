@@ -1,0 +1,11 @@
+@startuml
+node "Student / Admin Device" {
+  artifact "Web Browser\n(HTML, CSS, JavaScript)"
+}
+node "Application Host" {
+  artifact "Python Flask Server\n(app.py)"
+  artifact "In-memory Sample Data\nUsers, Questions, Results"
+}
+"Web Browser\n(HTML, CSS, JavaScript)" -- "Python Flask Server\n(app.py)" : HTTP
+"Python Flask Server\n(app.py)" -- "In-memory Sample Data\nUsers, Questions, Results" : Read / Write
+@enduml

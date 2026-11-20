@@ -1,0 +1,26 @@
+@startuml
+start
+:Open application;
+:Enter username and password;
+if (Credentials valid?) then (Yes)
+  if (User is Student?) then (Yes)
+    :Display student dashboard;
+    :Start examination;
+    :Display questions and timer;
+    :Select answers;
+    if (Submit or time expires?) then (Yes)
+      :Submit answers;
+      :Evaluate answers automatically;
+      :Calculate score and percentage;
+      :Display result;
+    endif
+  else (No - Admin)
+    :Display admin dashboard;
+    :Add questions or view results;
+  endif
+  :Logout;
+else (No)
+  :Show login error;
+endif
+stop
+@enduml
